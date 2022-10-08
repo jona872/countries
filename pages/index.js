@@ -11,7 +11,14 @@ import { nanoid } from 'nanoid'
 
 export default function Home({ countries }) {
   const [countryList, setCountryList] = useState(countries);
-  const [selectList, setSelectList] = useState(fetchSelect(countries));
+  
+  // const [selectList, setSelectList] = useState([]);
+  // countries.map((country) => {
+  //   if (!selectList.includes(country.region)) {
+  //     setSelectList([...selectList,country.region]);
+  //   }});
+  //   console.log(selectList);
+
 
   const vCard = countryList.map((country) => {
     return (<Card key={nanoid()}
@@ -30,17 +37,9 @@ export default function Home({ countries }) {
     }
   });
 
-  function fetchSelect(countries) {
-    let resu = ["Europa"];
-    countries.map((country) => {
-      if (!resu.includes(country.region)) {
-        resu.push(country.region);
-      }
-    });
-  }
-
 
   useEffect(() => {
+  
     if (typeof window !== "undefined") {
       var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
       var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -175,29 +174,29 @@ export default function Home({ countries }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  const res = await fetch(`https://restcountries.com/v3.1/all`);
-  const countries = await res.json();
+// export async function getServerSideProps(context) {
+//   const res = await fetch(`https://restcountries.com/v3.1/all`);
+//   const countries = await res.json();
 
-  if (!countries) {
-    return {
-      notFound: true,
-    }
-  }
+//   if (!countries) {
+//     return {
+//       notFound: true,
+//     }
+//   }
 
-  return {
-    props: { countries }, // will be passed to the page component as props
-  }
-}
-
-
-// // This also gets called at build time
-// export async function getStaticProps() {
-//   // params contains the post `id`.
-//   // If the route is like /posts/1, then params.id is 1
-//   const res = await fetch(`https://restcountries.com/v3.1/all`)
-//   const countries = await res.json()
-
-//   // Pass post data to the page via props
-//   return { props: { countries } }
+//   return {
+//     props: { countries }, // will be passed to the page component as props
+//   }
 // }
+
+
+// This also gets called at build time
+export async function getStaticProps() {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`https://restcountries.com/v3.1/all`)
+  const countries = await res.json()
+
+  // Pass post data to the page via props
+  return { props: { countries } }
+}

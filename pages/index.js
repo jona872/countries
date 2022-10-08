@@ -1,8 +1,58 @@
 import Head from 'next/head'
+import Script from 'next/script'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Navbar from '../components/Navbar/Navbar'
+import Layout from '../components/Layout/Layout';
 
 export default function Home() {
+
+  if (typeof window !== "undefined") {
+    var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      if (typeof themeToggleLightIcon !== "undefined")
+        themeToggleLightIcon.classList.remove('hidden');
+    } else {
+      if (typeof themeToggleDarkIcon !== "undefined")
+        themeToggleDarkIcon.classList.remove('hidden');
+    }
+
+    var themeToggleBtn = document.getElementById('theme-toggle');
+
+    themeToggleBtn.addEventListener('click', function () {
+
+      // toggle icons inside button
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+
+      // if set via local storage previously
+      if (localStorage.getItem('color-theme')) {
+        if (localStorage.getItem('color-theme') === 'light') {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        }
+
+        // if NOT set via local storage previously
+      } else {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        }
+      }
+
+    });
+  }
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,59 +61,119 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Script id="show-banner" strategy="lazyOnload">
+        {`
+          
+          if (
+            localStorage.getItem('color-theme') === 'dark' ||
+            (!('color-theme' in localStorage) &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          ) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }
+          
+          `}
+      </Script>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+      <Layout>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <Navbar />
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+        <div className="container mx-auto px-5">
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+
+          {/* SEARCH BAR */}
+          <div className="flex flex-col justify-between gap-5 py-5 sm:flex-row sm:items-center sm:px-5">
+            <div>
+              <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+              <div class="relative">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+
+                  <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+
+                </div>
+                <input type="search" id="default-search" class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for a Country" required />
+                {/* <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> */}
+              </div>
+            </div>
+
+            <div>
+              <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-md p-3 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Filter by region</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+              </select>
+            </div>
+
+
+            
+
+            
+          </div>
+
+
+          {/* Grid--Container */}
+          <div className="container mx-auto px-5">
+
+            {/* Handle Break point here */}
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
+
+              {/* Card */}
+              <div class="max-w bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mb-2">
+                {/* Card -- Img  */}
+                <img class="rounded-t-lg" src="https://flagcdn.com/br.svg" alt="flag" />
+
+                {/* Card--Body */}
+                <div class="p-7">
+                  {/* Body--title */}
+                  <p class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Brazil</p>
+
+                  {/* Body--Description */}
+                  <div class="mb-3 font-bold text-gray-700 dark:text-gray-400">
+                    <p>
+                      Population: <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        206.135.893
+                      </span>
+                    </p>
+                    <p>
+                      Region: <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        Americas
+                      </span>
+                    </p>
+                    <p>
+                      Capital: <span class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        Brasilia
+                      </span>
+                    </p>
+                  </div> {/* body--title------- */}
+                </div> {/* body------- */}
+              </div> {/* Card------- */}
+
+
+            </div> {/* Grid------- */}
+
+
+          </div>  {/* Grid--Container */}
+
+
+        </div> {/* container */}
+
+
+      </Layout>
+
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+        <a > Powered by{' '} <span className={styles.logo}>
+          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+        </span>
         </a>
       </footer>
+
     </div>
   )
 }

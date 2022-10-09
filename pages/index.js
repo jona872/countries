@@ -16,13 +16,16 @@ export default function Home({ countries }) {
 
 
   const vCard = countryList.map((country) => {
-    return (<Card key={nanoid()}
-      flag={country.flags.svg}
-      name={country.name.common}
-      population={country.population}
-      region={country.region}
-      capital={country.capital}
-    />);
+    return (
+      <Card key={nanoid()}
+        flag={country.flags.svg}
+        name={country.name.common}
+        population={country.population}
+        region={country.region}
+        capital={country.capital}
+        fobj={country} >
+      </Card>
+    );
   });
 
   const vRegions = [];
@@ -72,7 +75,7 @@ export default function Home({ countries }) {
   }, [selectFilter]);
 
   useEffect(() => {
-    
+
     if (typeof window !== "undefined") {
       var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
       var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -103,7 +106,7 @@ export default function Home({ countries }) {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('color-theme', 'light');
           }
- 
+
           // if NOT set via local storage previously
         } else {
           if (document.documentElement.classList.contains('dark')) {
@@ -117,7 +120,7 @@ export default function Home({ countries }) {
 
       });
     }
-    
+
   }, []);
 
 

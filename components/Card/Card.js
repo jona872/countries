@@ -36,7 +36,7 @@ export default function Card(props) {
                     {props.capital}
                   </span>
                 </p>
-              </div> {/* body--title------- */}
+              </div> {/* body--description------- */}
             </div> {/* body------- */}
           </div> {/* Card------- */}
         </a>

@@ -6,9 +6,9 @@ export default function Card(props) {
   return (
     <>
       <Link href={`/${encodeURIComponent(props.name)}`} style="cursor: pointer;">
-        <a>
           {/* Card */}
-          <div className="max-w bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mb-2">
+        <a className="max-w bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-700 dark:border-gray-700 mb-2">
+          <div>
             {/* Card -- Img  */}
 
             <img className="rounded-t-lg" src={props.flag} alt="flag" />

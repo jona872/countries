@@ -13,7 +13,7 @@ export default function Home({ countries }) {
  const [countryList, setCountryList] = useState([]);
  const [search, setSearch] = useState("");
  const [selectFilter, setSelectFilter] = useState("");
-
+ 
 
  const vCard = countryList.map((country) => {
   return (
@@ -149,10 +149,10 @@ export default function Home({ countries }) {
    </Script>
  
    {/* <Layout> */}
-   <Navbar /> 
+   <Navbar />
 
-   {/* Container */}
-   <div className="container mx-auto px-8 h-screen">
+   {/* Container */}  
+   <div className="container mx-auto px-8 h-screen dark:bg-gray-800">
 
     {/* SEARCH BAR */}
     <div className="flex flex-col justify-between gap-5 py-5 sm:flex-row sm:items-center sm:px-5">
@@ -196,8 +196,8 @@ export default function Home({ countries }) {
 
 
    </div> {/* container */}
-
-
+  
+ 
    {/* </Layout> */}
 
 

@@ -5,6 +5,19 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar/Navbar';
 import { nanoid } from 'nanoid';
 
+
+function parseNativeName(objName) {
+  const lastElement = Object.keys(objName).pop();
+  const nativeName = objName[lastElement].common;
+  const output = (typeof nativeName !== "undefined") ? nativeName : "Not found";
+  return output;
+}
+
+
+function formatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+}
+
 function parseCurrencies(currencies) {
   //currencies: { EUR: Object { name: "Euro", symbol: "€" } }
   let extract = Object.values(currencies)[0].name;
@@ -14,10 +27,13 @@ function parseCurrencies(currencies) {
 
 function parseLenguajes(languages) {
   //lenguajes: deu: "German", fra: "French",  nld: "Dutch"
-  let extract = Object.values(languages).toString();
+  // let extract = Object.values(languages).toString();
+
+  let extract = Object.values(languages).join(', ');
   const output = (typeof extract !== "undefined") ? extract : "Not found";
   return output;
 }
+
 
 
 export default function showCountry({ props }) {
@@ -25,30 +41,6 @@ export default function showCountry({ props }) {
   const [borderNames, setBorderNames] = useState([]);
   const country = props[0];
 
-  // useEffect(() => {
-
-  //   props[0].borders.map((border) => {
-  //     fetch(`https://restcountries.com/v3.1/name/${border}`)
-  //       .then(res => res.json())
-  //       .then(res => {
-  //         if (typeof res[0] !== "undefined") {
-  //           // console.log("Se agrego -> "+res[0].name.common);
-  //           setBorderNames(prevState =>
-  //             (!prevState.includes(res[0].name.common)) ?
-  //               [...prevState, res[0].name.common] :
-  //               [...prevState]
-  //           );
-  //         }
-  //       })
-  //       .catch(err => console.log(err));
-  //   });
-
-  // }, []);
-
-
-
-
-  //console.log(Object.values(country.name.nativeName));
   return (
     <>
       <Navbar />
@@ -64,26 +56,28 @@ export default function showCountry({ props }) {
 
 
         {/* container img & body */}
-        <div className="py-5 flex flex-col md:flex md:flex-row md:gap-28">
+        <div className="py-5 flex flex-col md:flex md:flex-row md:gap-28 md:w-full">
 
-          <img className="rounded-t-sm px-1.5 h-56 md:h-full my-5 w-full-sm max-w-lg md:w-full md:my-0 " src={country.flags.svg} alt="flag" />
+          {/* Flag */} 
+          <img className="rounded-t-sm px-1.5 h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
 
-          <div className="body md:flex md:flex-col md:w-full" >
+          {/* Body */}
+          <div className="body md:flex md:flex-col md:justify-center md:w-full" >
             {/* country name */}
             <p className="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{country.name.common}</p>
 
+            {/* Body--Description--1 */}
             <div className="flex flex-col gap-5  md:flex md:flex-row md:justify-between">
 
-              {/* Body--Description--1 */}
               <div className="mb-3 font-bold text-gray-700 dark:text-gray-400 leading-loose">
                 <p>
                   Native Name: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {country.name.common} ToDooo!
+                    {parseNativeName(country.name.nativeName)}
                   </span>
                 </p>
                 <p>
                   Population: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {country.population}
+                    {formatNumber(country.population)}
                   </span>
                 </p>
                 <p>
@@ -126,13 +120,13 @@ export default function showCountry({ props }) {
 
 
             {/* Body--Description--3 */}
-            <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:mt-10">
+            <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:mt-10 mt-8">
 
-              <div className="font-bold text-gray-700 dark:text-gray-400 mt-8">
+              <div className="font-bold text-gray-700 dark:text-gray-400">
                 <h4> Border Countries: </h4>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 text-gray-700 dark:text-gray-400 md:mt-0">
+              <div className="grid grid-cols-3 gap-3 text-gray-700 dark:text-gray-400 md:mt-0  md:grid-cols-5">
                 {
                   props[0].borders.map((border) => {
                     return (

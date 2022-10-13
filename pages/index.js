@@ -86,7 +86,7 @@ export default function Home({ countries }) {
       {/* <Navbar /> */}
 
       {/* Container */}
-      <div className="px-8 h-full w-full h-full md:min-h-screen dark:bg-gray-800">
+      <div className="px-8 h-full w-full h-full min-h-screen md:min-h-screen dark:bg-gray-800">
 
         {/* SEARCH BAR */}
         <div className="flex flex-col justify-between gap-5 py-5 sm:flex-row sm:items-center sm:px-5">
@@ -135,15 +135,17 @@ export default function Home({ countries }) {
       {/* </Layout> */}
 
 
-      <footer className={styles.footer}>
-        <a > Powered by{' '} <span className={styles.logo}>
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </span>
-        </a>
-        <Link href="https://www.frontendmentor.io?ref=challenge">
-          <a > Challenge by Frontend Mentor, Coded by Jona872 </a>
-        </Link>
-      </footer>
+      <div>
+        <footer className={styles.footer}>
+          <a > Powered by{' '} <span className={styles.logo}>
+            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+          </span>
+          </a>
+          <Link href="https://www.frontendmentor.io?ref=challenge">
+            <a > Challenge by Frontend Mentor, Coded by Jona872 </a>
+          </Link>
+        </footer>
+      </div>
 
     </main>
   )

@@ -1,26 +1,26 @@
 import React from 'react'
-import Document, {Html, Head, Main, NextScript} from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import Loader from '../components/Loader/Loader'
 
 class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
-                <Head/>
+                <Head />
                 <head>
                     <style>
                         {Loader}
                     </style>
                 </head>
                 <body>
-                <div id={'globalLoader'}>
-                     <div className="loader">
-                        <div/>
-                        <div/>
+                    <div id={'globalLoader'}>
+                        <div className="loader">
+                            <div />
+                            <div />
+                        </div>
                     </div>
-                </div>
-                <Main/>
-                <NextScript/>
+                    <Main />
+                    <NextScript />
                 </body>
             </Html>
         )

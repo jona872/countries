@@ -5,7 +5,7 @@ import Loader from '../components/Loader/Loader'
 class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="en">
                 <Head/>
                 <head>
                     <style>

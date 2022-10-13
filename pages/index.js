@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Script from 'next/script'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Navbar from '../components/Navbar/Navbar'
 import Layout from '../components/Layout/Layout';
@@ -85,13 +86,13 @@ export default function Home({ countries }) {
     <link rel="icon" href="/favicon.ico" />
    </Head>
 
-    
+
 
    {/* <Layout> */}
    {/* <Navbar /> */}
 
    {/* Container */}
-   <div className="px-8 h-full w-full dark:bg-gray-800">
+   <div className="px-8 h-full w-full min-h-full md:min-h-screen dark:bg-gray-800">
 
     {/* SEARCH BAR */}
     <div className="flex flex-col justify-between gap-5 py-5 sm:flex-row sm:items-center sm:px-5">
@@ -145,6 +146,9 @@ export default function Home({ countries }) {
      <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
     </span>
     </a>
+    <Link href="https://www.frontendmentor.io?ref=challenge">
+     <a > Challenge by Frontend Mentor, Coded by Jona872 </a>
+    </Link>
    </footer>
 
   </div>

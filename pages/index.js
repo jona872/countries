@@ -89,7 +89,7 @@ export default function Home({ countries }) {
    {/* <Navbar /> */}
 
    {/* Container */}
-   <div className="container mx-auto px-8 h-screen dark:bg-gray-800">
+   <div className="px-8 h-full w-full dark:bg-gray-800">
 
     {/* SEARCH BAR */}
     <div className="flex flex-col justify-between gap-5 py-5 sm:flex-row sm:items-center sm:px-5">

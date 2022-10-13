@@ -42,10 +42,9 @@ export default function showCountry({ props }) {
   const country = props[0];
 
   return (
-    <>
-
+    <div className="p-5 h-[calc(90vh)] dark:bg-gray-800">
       {/* Big container Handling margins */}
-      <div className="m-5 md:m-24">
+      <div className="md:m-24">
         <Link href="/">
           <a className="inline-flex items-center py-1 px-4 md:px-6 md:rounded-lg text-sm font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 mb-4 md:mb-16">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
@@ -142,7 +141,7 @@ export default function showCountry({ props }) {
         </div>
       </div>  {/* Big container Handling margins */}
 
-    </>
+    </div>
   )
 }
 

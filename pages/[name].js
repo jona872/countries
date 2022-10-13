@@ -43,7 +43,6 @@ export default function showCountry({ props }) {
 
   return (
     <>
-      <Navbar />
 
       {/* Big container Handling margins */}
       <div className="m-5 md:m-24">

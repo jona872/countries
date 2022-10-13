@@ -84,14 +84,11 @@ export default function showBorderCountry({ props }) {
               </div> {/* body--description------- */}
 
             </div>  {/* //flex container */}
-
-
+            
             {/* Body--Description--3 */}
             {
               props[0].borders &&
-
               <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:mt-10 mt-8">
-
                 <div className="font-bold text-gray-700 dark:text-gray-400">
                   <h4> Border Countries: </h4>
                 </div>
@@ -103,23 +100,15 @@ export default function showBorderCountry({ props }) {
                           <a key={nanoid()} className="drop-shadow-xl py-2 px-4 text-xs font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">{border}</a>
                         </Link>
                       )
-
                     })
                   }
                 </div>
               </div>
-
-
             }
             {/* body--description------- */}
-
-
           </div>
-
         </div>
-
       </div>  {/* Big container Handling margins */}
-
     </div>
   )
 }

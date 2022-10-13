@@ -1,6 +1,3 @@
-/* Utils.js */
-/* This file contains functions you can use anywhere in your application */
-
 function parseNativeName(objName) {
     const lastElement = Object.keys(objName).pop();
     const nativeName = objName[lastElement].common;
@@ -40,12 +37,3 @@ export {
     parseLenguajes,
     parseCodeName
 };
-
-
-
-
-
-
-
-
-

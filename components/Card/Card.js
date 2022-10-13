@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link';
 
 export default function Card(props) {
-  // console.log("🚀 ~ file: Card.js ~ line 4 ~ Card ~ props", props)
   return (
     <>
       <Link href={`/name/${encodeURIComponent(props.name)}`} style="cursor: pointer;">
@@ -10,9 +9,7 @@ export default function Card(props) {
         <a className="max-w bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-700 dark:border-gray-700 mb-2">
           <div>
             {/* Card -- Img  */}
-
             <img className="rounded-t-lg object-cover min-h-full min-w-full" src={props.flag} alt="flag" />
-
 
             {/* Card--Body */}
             <div className="p-7">

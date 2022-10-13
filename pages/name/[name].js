@@ -105,19 +105,13 @@ export default function showCountry({ props }) {
                           <a key={nanoid()} className="drop-shadow-xl py-2 px-4 text-xs font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">{border}</a>
                         </Link>
                       )
-
                     })
                   }
                 </div>
               </div>
-
-
             }
             {/* body--description------- */}
-
-
           </div>
-
         </div>
       </div>  {/* Big container Handling margins */}
 
@@ -141,49 +135,3 @@ export async function getServerSideProps(context) {
     props: { props: country }, // will be passed to the page component as props
   }
 }
-
-// // Working but loss data on refresh --------------------------------
-// export async function getStaticPaths() {
-//     //le pongo 1 por defecto, pero va generando todas dinamicamente la primera vez que entra
-//     return {
-//         paths: [{ params: { name: "Iceland" } }],
-//         fallback: true,
-//     }
-// }
-
-// export async function getStaticProps(context) {
-//     //context = params, response, query
-//     const { params } = context;
-//     const { name } = params;
-
-//     const apiResponse = await fetch(`https://restcountries.com/v3.1/name/${name}`);
-
-//     if (apiResponse.ok) {
-//         const props = await apiResponse.json();
-
-//         return { props: { props } }
-//     }
-// }
-
-
-// export async function getServerSideProps(context) {
-//     // console.log("🚀 ~ file: [name].js ~ line 21 ~ getServerSideProps ~ context", context)
-//     const res = await axios.put('https://restcountries.com/v3.1/name/' + context.query.name);
-//     const country = await res.json();
-
-//     if (!country) {
-//         return {
-//             notFound: true,
-//         }
-//     }
-
-//     return {
-//         props: { country }, // will be passed to the page component as props
-//     }
-// }
-
-
-
-
-
-

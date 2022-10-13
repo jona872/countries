@@ -155,29 +155,29 @@ export default function Home({ countries }) {
  )
 }
 
-// export async function getServerSideProps(context) {
-//   const res = await fetch(`https://restcountries.com/v3.1/all`);
-//   const countries = await res.json();
+export async function getServerSideProps(context) {
+  const res = await fetch(`https://restcountries.com/v3.1/all`);
+  const countries = await res.json();
 
-//   if (!countries) {
-//     return {
-//       notFound: true,
-//     }
-//   }
+  if (!countries) {
+    return {
+      notFound: true,
+    }
+  }
 
-//   return {
-//     props: { countries }, // will be passed to the page component as props
-//   }
-// }
-
-
-// This also gets called at build time
-export async function getStaticProps() {
- // params contains the post `id`.
- // If the route is like /posts/1, then params.id is 1
- const res = await fetch(`https://restcountries.com/v3.1/all`)
- const countries = await res.json()
-
- // Pass post data to the page via props
- return { props: { countries } }
+  return {
+    props: { countries }, // will be passed to the page component as props
+  }
 }
+
+
+// // This also gets called at build time
+// export async function getStaticProps() {
+//  // params contains the post `id`.
+//  // If the route is like /posts/1, then params.id is 1
+//  const res = await fetch(`https://restcountries.com/v3.1/all`)
+//  const countries = await res.json()
+
+//  // Pass post data to the page via props
+//  return { props: { countries } }
+// }

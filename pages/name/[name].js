@@ -11,9 +11,6 @@ export default function showCountry({ props }) {
   // console.log("🚀 ~ file: [name].js ~ line 7 ~ showCountry ~ props", props[0])
   const [borderNames, setBorderNames] = useState([]);
   const country = props[0];
-  props[0].borders.map((border) => {
-    console.log(border);
-  });
 
   return (
     <div className="p-5 h-[calc(90vh)] dark:bg-gray-800">

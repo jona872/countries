@@ -8,11 +8,7 @@ import Card from '../components/Card/Card';
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { nanoid } from 'nanoid';
-
-
-function formatNumber(num) {
- return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-}
+import * as parser from '../utils/parser'
 
 
 export default function Home({ countries }) {
@@ -26,7 +22,7 @@ export default function Home({ countries }) {
    <Card key={nanoid()}
     flag={country.flags.svg}
     name={country.name.common}
-    population={formatNumber(country.population)}
+    population={parser.formatNumber(country.population)}
     region={country.region}
     capital={country.capital}
     fobj={country} >

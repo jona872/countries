@@ -1,43 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../components/Layout/Layout';
+import Layout from '../../components/Layout/Layout';
 import axios from 'axios';
 import Link from 'next/link';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import { nanoid } from 'nanoid';
+import * as parser from '../../utils/parser'
 
 
-function parseNativeName(objName) {
-  const lastElement = Object.keys(objName).pop();
-  const nativeName = objName[lastElement].common;
-  const output = (typeof nativeName !== "undefined") ? nativeName : "Not found";
-  return output;
-}
-
-
-function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-}
-
-function parseCurrencies(currencies) {
-  //currencies: { EUR: Object { name: "Euro", symbol: "€" } }
-  let extract = Object.values(currencies)[0].name;
-  const output = (typeof extract !== "undefined") ? extract : "Not found";
-  return output;
-}
-
-function parseLenguajes(languages) {
-  //lenguajes: deu: "German", fra: "French",  nld: "Dutch"
-  // let extract = Object.values(languages).toString();
-
-  let extract = Object.values(languages).join(', ');
-  const output = (typeof extract !== "undefined") ? extract : "Not found";
-  return output;
-}
-
-
-
-export default function showCountry({ props }) {
-  // console.log("🚀 ~ file: [name].js ~ line 7 ~ showCountry ~ props", props[0])
+export default function showBorderCountry({ props }) {
   const [borderNames, setBorderNames] = useState([]);
   const country = props[0];
 
@@ -52,11 +22,10 @@ export default function showCountry({ props }) {
           </a>
         </Link>
 
-
         {/* container img & body */}
-        <div className="py-5 flex flex-col md:flex md:flex-row md:gap-28 md:w-full">
+        <div className="py-5 flex flex-col md:flex md:flex-row md:gap-20 md:w-full">
 
-          {/* Flag */} 
+          {/* Flag */}
           <img className="rounded-t-sm px-1.5 h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
 
           {/* Body */}
@@ -70,12 +39,12 @@ export default function showCountry({ props }) {
               <div className="mb-3 font-bold text-gray-700 dark:text-gray-400 leading-loose">
                 <p>
                   Native Name: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {parseNativeName(country.name.nativeName)}
+                    {parser.parseNativeName(country.name.nativeName)}
                   </span>
                 </p>
                 <p>
                   Population: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {formatNumber(country.population)}
+                    {parser.formatNumber(country.population)}
                   </span>
                 </p>
                 <p>
@@ -104,12 +73,12 @@ export default function showCountry({ props }) {
                 </p>
                 <p>
                   Currencies: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {parseCurrencies(country.currencies)}
+                    {parser.parseCurrencies(country.currencies)}
                   </span>
                 </p>
                 <p>
                   Lenguajes: <span className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {parseLenguajes(country.languages)}
+                    {parser.parseLenguajes(country.languages)}
                   </span>
                 </p>
               </div> {/* body--description------- */}
@@ -118,27 +87,37 @@ export default function showCountry({ props }) {
 
 
             {/* Body--Description--3 */}
-            <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:mt-10 mt-8">
+            {
+              props[0].borders &&
 
-              <div className="font-bold text-gray-700 dark:text-gray-400">
-                <h4> Border Countries: </h4>
+              <div className="flex flex-col gap-3 md:flex md:flex-row md:items-center md:mt-10 mt-8">
+
+                <div className="font-bold text-gray-700 dark:text-gray-400">
+                  <h4> Border Countries: </h4>
+                </div>
+                <div className="grid grid-cols-3 gap-3 text-gray-700 dark:text-gray-400 md:mt-0  md:grid-cols-5">
+                  {
+                    props[0].borders.map((border) => {
+                      return (
+                        <Link href={`/border/${encodeURIComponent(border)}`} style="cursor: pointer;">
+                          <a key={nanoid()} className="drop-shadow-xl py-2 px-4 text-xs font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">{border}</a>
+                        </Link>
+                      )
+
+                    })
+                  }
+                </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3 text-gray-700 dark:text-gray-400 md:mt-0  md:grid-cols-5">
-                {
-                  props[0].borders.map((border) => {
-                    return (
-                      <a key={nanoid()} className="drop-shadow-xl py-2 px-4 text-xs font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">{border}</a>
-                    )
 
-                  })
-                }
-              </div> {/* body--description------- */}
+            }
+            {/* body--description------- */}
 
-            </div>
+
           </div>
 
         </div>
+
       </div>  {/* Big container Handling margins */}
 
     </div>
@@ -147,8 +126,8 @@ export default function showCountry({ props }) {
 
 export async function getServerSideProps(context) {
   const { params } = context;
-  const { name } = params;
-  const res = await fetch(`https://restcountries.com/v3.1/name/${name}`);
+  const { border } = params;
+  const res = await fetch(`https://restcountries.com/v3.1/alpha/${border}`);
   const country = await res.json();
 
   if (!country) {
@@ -161,49 +140,3 @@ export async function getServerSideProps(context) {
     props: { props: country }, // will be passed to the page component as props
   }
 }
-
-// // Working but loss data on refresh --------------------------------
-// export async function getStaticPaths() {
-//     //le pongo 1 por defecto, pero va generando todas dinamicamente la primera vez que entra
-//     return {
-//         paths: [{ params: { name: "Iceland" } }],
-//         fallback: true,
-//     }
-// }
-
-// export async function getStaticProps(context) {
-//     //context = params, response, query
-//     const { params } = context;
-//     const { name } = params;
-
-//     const apiResponse = await fetch(`https://restcountries.com/v3.1/name/${name}`);
-
-//     if (apiResponse.ok) {
-//         const props = await apiResponse.json();
-
-//         return { props: { props } }
-//     }
-// }
-
-
-// export async function getServerSideProps(context) {
-//     // console.log("🚀 ~ file: [name].js ~ line 21 ~ getServerSideProps ~ context", context)
-//     const res = await axios.put('https://restcountries.com/v3.1/name/' + context.query.name);
-//     const country = await res.json();
-
-//     if (!country) {
-//         return {
-//             notFound: true,
-//         }
-//     }
-
-//     return {
-//         props: { country }, // will be passed to the page component as props
-//     }
-// }
-
-
-
-
-
-

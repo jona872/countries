@@ -6,12 +6,11 @@ class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
-                <Head />
-                <head>
+                <Head>
                     <style>
                         {Loader}
                     </style>
-                </head>
+                </Head>
                 <body>
                     <div id={'globalLoader'}>
                         <div className="loader">

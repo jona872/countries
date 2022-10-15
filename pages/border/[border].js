@@ -26,7 +26,7 @@ export default function showBorderCountry({ props }) {
         <div className="py-5 flex flex-col md:flex md:flex-row md:gap-20 md:w-full">
 
           {/* Flag */}
-          <img className="rounded-t-sm px-1.5 h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
+          <img className="rounded-t-sm h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
 
           {/* Body */}
           <div className="body md:flex md:flex-col md:justify-center md:w-full" >
@@ -96,7 +96,7 @@ export default function showBorderCountry({ props }) {
                   {
                     props[0].borders.map((border) => {
                       return (
-                        <Link href={`/border/${encodeURIComponent(border)}`} style="cursor: pointer;">
+                        <Link key={nanoid()} href={`/border/${encodeURIComponent(border)}`} style="cursor: pointer;">
                           <a key={nanoid()} className="drop-shadow-xl py-2 px-4 text-xs font-medium text-center text-gray-900 bg-white rounded-sm border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">{border}</a>
                         </Link>
                       )

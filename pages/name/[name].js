@@ -28,7 +28,7 @@ export default function showCountry({ props }) {
         <div className="py-5 flex flex-col md:flex md:flex-row md:gap-20 md:w-full">
 
           {/* Flag */}
-          <img className="rounded-t-sm px-1.5 h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
+          <img className="rounded-t-sm h-56 my-5 w-full-md md:w-full md:h-full md:my-0 " src={country.flags.svg} alt="flag" />
 
           {/* Body */}
           <div className="body md:flex md:flex-col md:justify-center md:w-full" >
